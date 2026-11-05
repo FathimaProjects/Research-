@@ -1,0 +1,85 @@
+{
+  "Orange": [
+    {
+      "title": "Classic Fresh Orange Marmalade",
+      "description": "Traditional bittersweet preserve crafted from whole fresh sweet oranges, sugar, and citrus pectin.",
+      "imageUrl": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=0k5G6GjB7p0"
+    },
+    {
+      "title": "Glazed Orange Roast Chicken",
+      "description": "Crisp roast poultry basted with fresh orange reduction, rosemary, and garlic cloves.",
+      "imageUrl": "https://images.unsplash.com/photo-1598103442097-8b74394b95c6?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=s5R8wP5W3mQ"
+    },
+    {
+      "title": "Flourless Sicilian Whole Orange Cake",
+      "description": "Moist, fragrant Mediterranean almond cake made by boiling and blending whole fresh oranges.",
+      "imageUrl": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=7uV8Zq7qQYk"
+    }
+  ],
+  "Tangerine": [
+    {
+      "title": "Crispy Tangerine Beef",
+      "description": "Wok-seared flank steak in a fragrant dried tangerine peel and sweet soy glaze.",
+      "imageUrl": "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=8mGf7k6wJ2Y"
+    },
+    {
+      "title": "Mandarin Tangerine Sorbet",
+      "description": "Silky dairy-free chilled dessert made from fresh-pressed tangerine juice and a touch of agave.",
+      "imageUrl": "https://images.unsplash.com/photo-1560008581-09826d1de69e?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=5rF6Y_7JvK4"
+    }
+  ],
+  "Lemon": [
+    {
+      "title": "Silky French Lemon Curd Tart",
+      "description": "Buttery shortcrust pastry filled with vibrant lemon curd and chilled to perfection.",
+      "imageUrl": "https://images.unsplash.com/photo-1519869325930-281384150729?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=Jm3Uo6o1y5M"
+    },
+    {
+      "title": "Authentic Italian Limoncello",
+      "description": "Traditional liqueur infused with aromatic lemon zest peels and pure organic cane syrup.",
+      "imageUrl": "https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=gT8Y0D1p2E4"
+    },
+    {
+      "title": "Greek Lemon Herb Roasted Potatoes",
+      "description": "Golden crispy potato wedges braised in fresh lemon juice, oregano, olive oil, and vegetable broth.",
+      "imageUrl": "https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=2xU4D6V7f_A"
+    }
+  ],
+  "Lime": [
+    {
+      "title": "Classic Key Lime Pie",
+      "description": "Creamy tart filling made from real lime juice and sweetened condensed milk over graham crust.",
+      "imageUrl": "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=uD5oZ1b4qJ4"
+    },
+    {
+      "title": "Traditional Peruvian Fish Ceviche",
+      "description": "Fresh white fish cured in cold lime juice with red onions, cilantro, and rocoto peppers.",
+      "imageUrl": "https://images.unsplash.com/photo-1535400255456-984241443b29?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=4dJ6F4XWvM8"
+    }
+  ],
+  "Kaffir Lime": [
+    {
+      "title": "Authentic Thai Tom Yum Goong",
+      "description": "Aromatic spicy soup simmered with bruised Makrut kaffir lime leaves, lemongrass, galangal, and shrimp.",
+      "imageUrl": "https://images.unsplash.com/photo-1548943487-a2e4e43b4853?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=3Kq0t3jP2M4"
+    },
+    {
+      "title": "Thai Green Curry (Gaeng Keow Wan)",
+      "description": "Rich coconut milk curry infused with finely ground kaffir lime peel and torn leaves.",
+      "imageUrl": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=600&auto=format&fit=crop&q=80",
+      "recipeUrl": "https://www.youtube.com/watch?v=7uK2x8N1A5Q"
+    }
+  ]
+}
+

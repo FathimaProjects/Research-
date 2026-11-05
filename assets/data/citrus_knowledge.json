@@ -1,0 +1,142 @@
+{
+  "Orange": {
+    "scientificName": "Citrus sinensis",
+    "commonName": "Sweet Orange",
+    "servingSize": "100g",
+    "nutrition": {
+      "calories": "47 kcal",
+      "water": "87%",
+      "protein": "0.9 g",
+      "carbs": "11.8 g",
+      "sugar": "9.4 g",
+      "fiber": "2.4 g",
+      "fat": "0.1 g",
+      "vitaminC": "53.2 mg (59% DV)",
+      "calcium": "40 mg",
+      "potassium": "181 mg",
+      "folate": "30 µg"
+    },
+    "allergyInfo": {
+      "citrusAllergy": "Citrus allergy is rare but documented. Symptoms can include oral allergy syndrome (itching lips/throat) or contact dermatitis from citrus peel oils (limonene).",
+      "crossReactivity": "May cross-react with grass pollen or other citrus species.",
+      "sensitivityAdvice": "People with gastroesophageal reflux disease (GERD) may experience acid irritation."
+    },
+    "healthInfo": {
+      "benefits": "Rich in ascorbic acid (Vitamin C) supporting immune function and collagen synthesis. High hesperidin flavonoid content contributes to cardiovascular health.",
+      "storageRecommendation": "Store at cool room temperature for up to 1 week, or refrigerate for 2-3 weeks.",
+      "culinaryUses": "Fresh snacking, juicing, zest in baking, marmalades."
+    }
+  },
+  "Tangerine": {
+    "scientificName": "Citrus reticulata",
+    "commonName": "Mandarin / Tangerine",
+    "servingSize": "100g",
+    "nutrition": {
+      "calories": "53 kcal",
+      "water": "85.2%",
+      "protein": "0.8 g",
+      "carbs": "13.3 g",
+      "sugar": "10.6 g",
+      "fiber": "1.8 g",
+      "fat": "0.3 g",
+      "vitaminC": "26.7 mg (30% DV)",
+      "vitaminA": "34 µg (4% DV)",
+      "potassium": "166 mg",
+      "calcium": "37 mg"
+    },
+    "allergyInfo": {
+      "citrusAllergy": "Possible contact dermatitis from rind terpene compounds (pinene, limonene). Hypersensitivity reactions are uncommon.",
+      "crossReactivity": "Occasional cross-reactivity with birch pollen or other Rutaceae species.",
+      "sensitivityAdvice": "Slightly less acidic than oranges; usually better tolerated by mild acid-sensitive individuals."
+    },
+    "healthInfo": {
+      "benefits": "Contains beta-cryptoxanthin and nobiletin flavonoids which show anti-inflammatory properties and cellular support.",
+      "storageRecommendation": "Keep in a cool, ventilated container away from direct sunlight for up to 5 days, or refrigerate up to 2 weeks.",
+      "culinaryUses": "Easy-to-peel fresh snack, salads, candied peel, Asian glazes."
+    }
+  },
+  "Lemon": {
+    "scientificName": "Citrus limon",
+    "commonName": "Lemon",
+    "servingSize": "100g",
+    "nutrition": {
+      "calories": "29 kcal",
+      "water": "89%",
+      "protein": "1.1 g",
+      "carbs": "9.3 g",
+      "sugar": "2.5 g",
+      "fiber": "2.8 g",
+      "fat": "0.3 g",
+      "vitaminC": "53 mg (59% DV)",
+      "citricAcid": "5-8% juice content",
+      "potassium": "138 mg",
+      "calcium": "26 mg"
+    },
+    "allergyInfo": {
+      "citrusAllergy": "Contact allergy to peel oil (citral, limonene) may cause cheilitis or eczema on hands.",
+      "crossReactivity": "Possible cross-reactivity across other members of the genus Citrus.",
+      "sensitivityAdvice": "High citric acid content can erode dental enamel if consumed undiluted regularly. May aggravate acid reflux."
+    },
+    "healthInfo": {
+      "benefits": "Citrate in lemon juice helps prevent calcium kidney stones by increasing urine volume and pH. High antioxidant profile.",
+      "storageRecommendation": "Store in the crisper drawer of your refrigerator for up to 3 to 4 weeks.",
+      "culinaryUses": "Salad dressings, marinades, curds, lemonade, seafood seasoning."
+    }
+  },
+  "Lime": {
+    "scientificName": "Citrus aurantiifolia",
+    "commonName": "Key Lime / Persian Lime",
+    "servingSize": "100g",
+    "nutrition": {
+      "calories": "30 kcal",
+      "water": "88.3%",
+      "protein": "0.7 g",
+      "carbs": "10.5 g",
+      "sugar": "1.7 g",
+      "fiber": "2.8 g",
+      "fat": "0.2 g",
+      "vitaminC": "29.1 mg (32% DV)",
+      "potassium": "102 mg",
+      "iron": "0.6 mg",
+      "calcium": "33 mg"
+    },
+    "allergyInfo": {
+      "citrusAllergy": "Known risk of phytophotodermatitis: furocoumarins (psoralens) in lime juice/rind react with UV sunlight causing skin blistering and hyperpigmentation (often called 'Margarita burn').",
+      "crossReactivity": "Other citrus fruits and Apiaceae plants (celery, parsley).",
+      "sensitivityAdvice": "Wash skin thoroughly with soap and water after handling limes before sun exposure."
+    },
+    "healthInfo": {
+      "benefits": "High soluble fiber (pectin) and citric acid aiding iron absorption and digestive enzymatic activity.",
+      "storageRecommendation": "Store in a breathable bag in the refrigerator for up to 3 weeks.",
+      "culinaryUses": "Ceviche, guacamole, cocktails, Thai and Mexican cuisine, marinades."
+    }
+  },
+  "Kaffir Lime": {
+    "scientificName": "Citrus hystrix",
+    "commonName": "Makrut Lime / Kaffir Lime",
+    "servingSize": "100g (rind & leaves used primarily)",
+    "nutrition": {
+      "calories": "Information unavailable",
+      "water": "Information unavailable",
+      "protein": "Information unavailable",
+      "carbs": "Information unavailable",
+      "sugar": "Information unavailable",
+      "fiber": "Information unavailable",
+      "fat": "Information unavailable",
+      "vitaminC": "Information unavailable",
+      "potassium": "Information unavailable",
+      "calcium": "Information unavailable"
+    },
+    "allergyInfo": {
+      "citrusAllergy": "Contains high concentrations of citronellal and terpenes in leaves and bumpy rind. May trigger contact allergy in sensitive skin.",
+      "crossReactivity": "Rutaceae plant family.",
+      "sensitivityAdvice": "Rind and leaves are intensely fragrant and bitter; flesh is rarely eaten raw due to very low juice and extreme astringency."
+    },
+    "healthInfo": {
+      "benefits": "Essential oils from leaves show strong antimicrobial, antioxidant, and insect-repellent properties in botanical studies.",
+      "storageRecommendation": "Leaves freeze exceptionally well for up to 1 year. Fruit keeps in refrigerator for 2-3 weeks.",
+      "culinaryUses": "Double leaves torn and infused in Tom Yum soup, green curries, and Southeast Asian pastes."
+    }
+  }
+}
+
