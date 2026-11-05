@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
 import '../../../core/widgets/citrus_logo.dart';
-import '../../../core/widgets/prototype_badge.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});
@@ -13,11 +12,11 @@ class AboutScreen extends StatelessWidget {
       backgroundColor: AppColors.warmCream,
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 16.0),
+          padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Header
+              // Header Row: Brand Logo + "About" Title
               const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -36,81 +35,243 @@ class AboutScreen extends StatelessWidget {
                       ),
                     ],
                   ),
-                  PrototypeBadge(text: AppStrings.researchPrototype),
+                  Text(
+                    'About',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.forestGreen,
+                      letterSpacing: -0.2,
+                    ),
+                  ),
                 ],
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 18),
 
-              Text(
-                'About Citrus AI',
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontSize: 26,
-                      fontWeight: FontWeight.w700,
-                      color: AppColors.forestGreen,
+              // Deep Forest Green Hero Card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(22),
+                decoration: BoxDecoration(
+                  color: AppColors.forestGreen,
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: Stack(
+                  children: [
+                    // Concentric circle watermark
+                    Positioned(
+                      right: -30,
+                      bottom: -30,
+                      child: Container(
+                        width: 140,
+                        height: 140,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            color: AppColors.white.withValues(alpha: 0.08),
+                            width: 25,
+                          ),
+                        ),
+                      ),
                     ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'An intelligent botanical recognition system developed as an 8th-semester university research prototype.',
-                style: TextStyle(
-                  fontSize: 13,
-                  color: AppColors.forestGreen.withOpacity(0.75),
-                  height: 1.4,
+
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            // Citrus Orange Icon Circle
+                            Container(
+                              width: 48,
+                              height: 48,
+                              decoration: const BoxDecoration(
+                                color: AppColors.citrusOrange,
+                                shape: BoxShape.circle,
+                              ),
+                              child: const Center(
+                                child: Icon(
+                                  Icons.eco,
+                                  color: AppColors.forestGreen,
+                                  size: 26,
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 14),
+                            const Text(
+                              AppStrings.appName,
+                              style: TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.w700,
+                                color: AppColors.white,
+                                letterSpacing: -0.4,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 14),
+                        Text(
+                          'Responsible recognition and knowledge retrieval for visually similar citrus fruit.',
+                          style: TextStyle(
+                            fontSize: 13,
+                            color: AppColors.white.withValues(alpha: 0.85),
+                            height: 1.45,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
               ),
 
-              const SizedBox(height: 24),
+              const SizedBox(height: 16),
 
-              // Card: Machine Learning Architecture
-              _buildInfoCard(
-                icon: Icons.memory,
-                title: 'On-Device Machine Learning',
-                content:
-                    'Powered by a fine-tuned MobileNetV2 convolutional neural network running locally via TensorFlow Lite. Inference executes directly on the device, ensuring ultra-low latency and user privacy without transmitting image scans to external servers.',
+              // Three-Item Feature Card (White with Dividers)
+              Container(
+                decoration: BoxDecoration(
+                  color: AppColors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  border: Border.all(color: AppColors.borderLight),
+                ),
+                child: Column(
+                  children: [
+                    _buildFeatureRow(
+                      icon: Icons.auto_awesome,
+                      title: 'MobileNetV2 recognition',
+                      subtitle:
+                          'A trained deep learning model classifies images across the five supported classes.',
+                    ),
+                    const Divider(height: 1, color: AppColors.borderLight),
+                    _buildFeatureRow(
+                      icon: Icons.menu_book_outlined,
+                      title: 'Curated knowledge',
+                      subtitle:
+                          'Factual nutrition and health information comes only from a verified database.',
+                    ),
+                    const Divider(height: 1, color: AppColors.borderLight),
+                    _buildFeatureRow(
+                      icon: Icons.restaurant_outlined,
+                      title: 'Gemini for culinary ideas',
+                      subtitle:
+                          'Generative AI is limited to recipe ideas, serving suggestions, and cooking instructions.',
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 16),
 
-              // Card: Supported Species
-              _buildInfoCard(
-                icon: Icons.eco,
-                title: '5 Supported Citrus Classes',
-                content:
-                    '1. Sweet Orange (Citrus sinensis)\n2. Mandarin / Tangerine (Citrus reticulata)\n3. Lemon (Citrus limon)\n4. Lime (Citrus aurantiifolia)\n5. Kaffir / Makrut Lime (Citrus hystrix)',
+              // Deep Forest Green Supported Classes Card
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  color: AppColors.forestGreen,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'SUPPORTED CLASSES',
+                      style: TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: 0.8,
+                        color: AppColors.softSage.withValues(alpha: 0.9),
+                      ),
+                    ),
+                    const SizedBox(height: 14),
+                    Wrap(
+                      spacing: 8,
+                      runSpacing: 10,
+                      children: AppStrings.supportedClasses
+                          .map(
+                            (variety) => Container(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 16,
+                                vertical: 8,
+                              ),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFF204B3E),
+                                borderRadius: BorderRadius.circular(20),
+                                border: Border.all(
+                                  color: AppColors.white.withValues(alpha: 0.15),
+                                ),
+                              ),
+                              child: Text(
+                                variety,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w600,
+                                  color: AppColors.white.withValues(alpha: 0.9),
+                                ),
+                              ),
+                            ),
+                          )
+                          .toList(),
+                    ),
+                  ],
+                ),
               ),
 
               const SizedBox(height: 16),
 
-              // Card: Verified Static Knowledge Base
-              _buildInfoCard(
-                icon: Icons.menu_book,
-                title: 'Verified Knowledge Base',
-                content:
-                    'All nutritional values, allergy profiles, and health characteristics are derived strictly from verified static datasets and agricultural laboratory findings. When verified data is missing, the system strictly reports "Information unavailable" rather than approximating.',
+              // Prototype Disclaimer Card (Warm Peach/Apricot)
+              Container(
+                width: double.infinity,
+                padding: const EdgeInsets.all(14),
+                decoration: BoxDecoration(
+                  color: const Color(0xFFFAF1E6),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Icon(
+                      Icons.info_outline,
+                      size: 16,
+                      color: Color(0xFF78350F),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: Text(
+                        'This university research prototype may make classification errors. It is not a medical device, diagnostic tool, or substitute for professional advice.',
+                        style: TextStyle(
+                          fontSize: 11.5,
+                          color: const Color(0xFF5A4232).withValues(alpha: 0.95),
+                          height: 1.4,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ),
 
-              const SizedBox(height: 16),
+              const SizedBox(height: 20),
 
-              // Card: Secure Gemini Suggestions
-              _buildInfoCard(
-                icon: Icons.auto_awesome,
-                title: 'Culinary Suggestions & Recipes',
-                content:
-                    'Culinary recipe recommendations and serving ideas are assisted by Google Gemini through a secure backend proxy. The mobile app never exposes credentials, and suggestions only link to verified culinary publications and video tutorials.',
+              // Design Foundations Section
+              const Text(
+                'DESIGN FOUNDATIONS',
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w800,
+                  letterSpacing: 0.8,
+                  color: AppColors.primaryGreen,
+                ),
+              ),
+              const SizedBox(height: 10),
+              const Row(
+                children: [
+                  _DesignFoundationChip(label: '8 pt spacing'),
+                  SizedBox(width: 8),
+                  _DesignFoundationChip(label: 'Accessible targets'),
+                  SizedBox(width: 8),
+                  _DesignFoundationChip(label: 'High contrast'),
+                ],
               ),
 
-              const SizedBox(height: 16),
-
-              // Card: Privacy & Guest Access
-              _buildInfoCard(
-                icon: Icons.security,
-                title: 'Privacy & Guest Access',
-                content:
-                    'Citrus AI requires no registration, passwords, or personal credentials. No scan history is recorded on remote databases, protecting individual privacy.',
-              ),
-
-              const SizedBox(height: 80),
+              const SizedBox(height: 80), // Bottom padding for navigation shell
             ],
           ),
         ),
@@ -118,52 +279,50 @@ class AboutScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildInfoCard({
+  Widget _buildFeatureRow({
     required IconData icon,
     required String title,
-    required String content,
+    required String subtitle,
   }) {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.all(18),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Column(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: AppColors.softSage,
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(icon, color: AppColors.primaryGreen, size: 20),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: Text(
+          Container(
+            width: 38,
+            height: 38,
+            decoration: BoxDecoration(
+              color: AppColors.softSage.withValues(alpha: 0.7),
+              shape: BoxShape.circle,
+            ),
+            child: Center(
+              child: Icon(icon, color: AppColors.primaryGreen, size: 20),
+            ),
+          ),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
                   title,
                   style: const TextStyle(
-                    fontSize: 15,
+                    fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: AppColors.forestGreen,
                   ),
                 ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 12),
-          Text(
-            content,
-            style: const TextStyle(
-              fontSize: 13,
-              height: 1.5,
-              color: AppColors.textSecondary,
+                const SizedBox(height: 4),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: AppColors.textMuted,
+                    height: 1.35,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
@@ -172,3 +331,28 @@ class AboutScreen extends StatelessWidget {
   }
 }
 
+class _DesignFoundationChip extends StatelessWidget {
+  final String label;
+
+  const _DesignFoundationChip({required this.label});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(10),
+        border: Border.all(color: AppColors.borderLight),
+      ),
+      child: Text(
+        label,
+        style: const TextStyle(
+          fontSize: 11,
+          fontWeight: FontWeight.w600,
+          color: AppColors.textSecondary,
+        ),
+      ),
+    );
+  }
+}

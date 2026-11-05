@@ -156,20 +156,26 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
               // Home Tab
               InkWell(
                 onTap: () => setState(() => _currentIndex = 0),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+                  decoration: BoxDecoration(
+                    color: _currentIndex == 0 ? AppColors.softSage : Colors.transparent,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.home_filled,
+                        size: 20,
                         color: _currentIndex == 0 ? AppColors.primaryGreen : AppColors.textMuted,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         'Home',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 11,
                           fontWeight: _currentIndex == 0 ? FontWeight.w700 : FontWeight.w500,
                           color: _currentIndex == 0 ? AppColors.primaryGreen : AppColors.textMuted,
                         ),
@@ -184,20 +190,26 @@ class _MainNavigationShellState extends State<MainNavigationShell> {
               // About Tab
               InkWell(
                 onTap: () => setState(() => _currentIndex = 1),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                borderRadius: BorderRadius.circular(16),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 6.0),
+                  decoration: BoxDecoration(
+                    color: _currentIndex == 1 ? AppColors.softSage : Colors.transparent,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(
                         Icons.info_outline,
+                        size: 20,
                         color: _currentIndex == 1 ? AppColors.primaryGreen : AppColors.textMuted,
                       ),
-                      const SizedBox(height: 4),
+                      const SizedBox(height: 2),
                       Text(
                         'About',
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 11,
                           fontWeight: _currentIndex == 1 ? FontWeight.w700 : FontWeight.w500,
                           color: _currentIndex == 1 ? AppColors.primaryGreen : AppColors.textMuted,
                         ),
