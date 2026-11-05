@@ -250,26 +250,7 @@ class AboutScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              // Design Foundations Section
-              const Text(
-                'DESIGN FOUNDATIONS',
-                style: TextStyle(
-                  fontSize: 11,
-                  fontWeight: FontWeight.w800,
-                  letterSpacing: 0.8,
-                  color: AppColors.primaryGreen,
-                ),
-              ),
-              const SizedBox(height: 10),
-              const Row(
-                children: [
-                  _DesignFoundationChip(label: '8 pt spacing'),
-                  SizedBox(width: 8),
-                  _DesignFoundationChip(label: 'Accessible targets'),
-                  SizedBox(width: 8),
-                  _DesignFoundationChip(label: 'High contrast'),
-                ],
-              ),
+              
 
               const SizedBox(height: 80), // Bottom padding for navigation shell
             ],
@@ -331,28 +312,4 @@ class AboutScreen extends StatelessWidget {
   }
 }
 
-class _DesignFoundationChip extends StatelessWidget {
-  final String label;
 
-  const _DesignFoundationChip({required this.label});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-      decoration: BoxDecoration(
-        color: AppColors.white,
-        borderRadius: BorderRadius.circular(10),
-        border: Border.all(color: AppColors.borderLight),
-      ),
-      child: Text(
-        label,
-        style: const TextStyle(
-          fontSize: 11,
-          fontWeight: FontWeight.w600,
-          color: AppColors.textSecondary,
-        ),
-      ),
-    );
-  }
-}
