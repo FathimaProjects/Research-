@@ -162,48 +162,7 @@ class RecognitionResultScreen extends StatelessWidget {
 
               const SizedBox(height: 16),
 
-              // Demonstration / Model Disclaimer Card
-              Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: AppColors.borderLight),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Icon(
-                      Icons.info_outline,
-                      size: 18,
-                      color: AppColors.primaryGreen,
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: RichText(
-                        text: TextSpan(
-                          style: TextStyle(
-                            fontSize: 12,
-                            color: AppColors.forestGreen.withValues(alpha: 0.85),
-                            height: 1.4,
-                          ),
-                          children: const [
-                            TextSpan(
-                              text: 'Model prediction. ',
-                              style: TextStyle(fontWeight: FontWeight.w700),
-                            ),
-                            TextSpan(
-                              text:
-                                  'This prediction is generated on-device by your MobileNetV2 TensorFlow Lite model.',
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              
 
               const SizedBox(height: 16),
 
@@ -288,7 +247,10 @@ class RecognitionResultScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => NutritionScreen(fruitName: result.predictedClass),
+                            builder: (_) => NutritionScreen(
+                              fruitName: result.predictedClass,
+                              imagePath: result.imagePath,
+                            ),
                           ),
                         );
                       },

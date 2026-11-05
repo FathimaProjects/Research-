@@ -7,15 +7,15 @@ import '../domain/recognition_result.dart';
 
 class ClassifierService {
   static const List<String> labels = [
-    'Orange',
-    'Tangerine',
+    'Kaffir Lime',
     'Lemon',
     'Lime',
-    'Kaffir Lime',
+    'Orange',
+    'Tangerine',
   ];
 
   static const int inputSize = 224;
-  static const double confidenceThreshold = 0.60; // 60% minimum confidence
+  static const double confidenceThreshold = 0.40; // 60% minimum confidence
 
   Interpreter? _interpreter;
   bool _isInitialized = false;
@@ -72,17 +72,17 @@ class ClassifierService {
       height: inputSize,
     );
 
-    // Prepare input tensor [1, 224, 224, 3] normalized to [0, 1]
+    // Prepare input tensor [1, 224, 224, 3] normalized to [-1, 1] for MobileNetV2
     final input = Float32List(1 * inputSize * inputSize * 3);
     var pixelIndex = 0;
 
     for (var y = 0; y < inputSize; y++) {
       for (var x = 0; x < inputSize; x++) {
         final pixel = resizedImage.getPixel(x, y);
-        // Normalize 0-255 to 0.0 - 1.0 (MobileNetV2 standard normalization)
-        input[pixelIndex++] = pixel.r / 255.0;
-        input[pixelIndex++] = pixel.g / 255.0;
-        input[pixelIndex++] = pixel.b / 255.0;
+        // MobileNetV2 standard normalization: scale [0, 255] to [-1.0, 1.0]
+        input[pixelIndex++] = (pixel.r - 127.5) / 127.5;
+        input[pixelIndex++] = (pixel.g - 127.5) / 127.5;
+        input[pixelIndex++] = (pixel.b - 127.5) / 127.5;
       }
     }
 
@@ -121,6 +121,10 @@ class ClassifierService {
     }
 
     final predictedLabel = predictedIndex < labels.length ? labels[predictedIndex] : 'Unknown';
+
+    debugPrint('ClassifierService Raw logits: $rawScores');
+    debugPrint('ClassifierService Probabilities: $scoresMap');
+    debugPrint('ClassifierService Top match: $predictedLabel (${(highestConfidence * 100).toStringAsFixed(1)}%)');
 
     final isConfident = highestConfidence >= confidenceThreshold;
 

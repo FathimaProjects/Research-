@@ -328,7 +328,7 @@ class _AllergyHealthScreenState extends State<AllergyHealthScreen> {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            'Verified source citations will be shown here. No unsupported health claims are displayed.',
+                            'Verified source informations are shown here',
                             style: TextStyle(
                               fontSize: 12,
                               color: AppColors.white.withValues(alpha: 0.75),

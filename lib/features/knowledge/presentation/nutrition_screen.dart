@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/constants/strings.dart';
@@ -7,10 +8,12 @@ import '../domain/citrus_knowledge_model.dart';
 
 class NutritionScreen extends StatefulWidget {
   final String fruitName;
+  final String? imagePath;
 
   const NutritionScreen({
     super.key,
     required this.fruitName,
+    this.imagePath,
   });
 
   @override
@@ -103,25 +106,21 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
                           Row(
                             children: [
-                              // Fruit Thumbnail Image
+                              // Fruit Thumbnail Image (User's provided fruit image)
                               ClipRRect(
                                 borderRadius: BorderRadius.circular(16),
-                                child: Image.asset(
-                                  'assets/images/welcome_hero.jpg',
-                                  width: 80,
-                                  height: 80,
-                                  fit: BoxFit.cover,
-                                  errorBuilder: (context, error, stackTrace) => Container(
-                                    width: 80,
-                                    height: 80,
-                                    color: AppColors.primaryGreen,
-                                    child: const Icon(
-                                      Icons.eco,
-                                      color: AppColors.white,
-                                      size: 36,
-                                    ),
-                                  ),
-                                ),
+                                child: (widget.imagePath != null &&
+                                        widget.imagePath!.isNotEmpty &&
+                                        File(widget.imagePath!).existsSync())
+                                    ? Image.file(
+                                        File(widget.imagePath!),
+                                        width: 80,
+                                        height: 80,
+                                        fit: BoxFit.cover,
+                                        errorBuilder: (context, error, stackTrace) =>
+                                            _buildFallbackThumbnail(),
+                                      )
+                                    : _buildFallbackThumbnail(),
                               ),
                               const SizedBox(width: 16),
                               Expanded(
@@ -169,36 +168,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Curated Knowledge Database Notice Banner
-                    Container(
-                      width: double.infinity,
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-                      decoration: BoxDecoration(
-                        color: AppColors.softSage.withValues(alpha: 0.6),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      child: Row(
-                        children: [
-                          const Icon(
-                            Icons.verified_user_outlined,
-                            size: 18,
-                            color: AppColors.primaryGreen,
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: Text(
-                              'Only values supplied by the curated knowledge database appear here.',
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.forestGreen.withValues(alpha: 0.85),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-
+                    
                     const SizedBox(height: 16),
 
                     // Nutrition Rows Card (Figma Layout with Orange Dot & Pill Values)
@@ -263,10 +233,10 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         color: AppColors.forestGreen,
                         borderRadius: BorderRadius.circular(20),
                       ),
-                      child: Column(
+                      child: const Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Row(
+                          Row(
                             children: [
                               Icon(
                                 Icons.verified_user_outlined,
@@ -284,23 +254,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                               ),
                             ],
                           ),
-                          const SizedBox(height: 8),
-                          Text(
-                            'Source attribution will appear when a matched knowledge record is available.',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.white.withValues(alpha: 0.8),
-                              height: 1.4,
-                            ),
-                          ),
-                          const SizedBox(height: 10),
-                          Text(
-                            'Last updated: Information unavailable',
-                            style: TextStyle(
-                              fontSize: 11,
-                              color: AppColors.white.withValues(alpha: 0.55),
-                            ),
-                          ),
+                          
                         ],
                       ),
                     ),
@@ -377,6 +331,25 @@ class _NutritionScreenState extends State<NutritionScreen> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildFallbackThumbnail() {
+    return Image.asset(
+      'assets/images/welcome_hero.jpg',
+      width: 80,
+      height: 80,
+      fit: BoxFit.cover,
+      errorBuilder: (context, error, stackTrace) => Container(
+        width: 80,
+        height: 80,
+        color: AppColors.primaryGreen,
+        child: const Icon(
+          Icons.eco,
+          color: AppColors.white,
+          size: 36,
+        ),
       ),
     );
   }
