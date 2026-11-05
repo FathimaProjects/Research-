@@ -1,4 +1,4 @@
-# Citrus AI — Mobile Recognition & Botanical Guide
+# Citrus AI — Mobile Recognition 
 
 An intelligent mobile application developed as an 8th-semester university research prototype. Citrus AI classifies five distinct citrus fruit species using an on-device fine-tuned MobileNetV2 convolutional neural network running locally via TensorFlow Lite, retrieves verified nutritional and botanical health data, and provides curated culinary suggestions.
 
