@@ -249,12 +249,12 @@ class _NutritionScreenState extends State<NutritionScreen> {
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
                           _buildNutrientRow(
-                            'Sugars',
+                            'Sugar',
                             _getNutrientValue('sugar'),
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
                           _buildNutrientRow(
-                            'Fibre',
+                            'Fiber',
                             _getNutrientValue('fiber'),
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
@@ -334,10 +334,17 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
   String _getMineralsValue() {
     if (_knowledge == null) return AppStrings.infoUnavailable;
-    final calcium = _knowledge!.nutrition['calcium'];
-    final potassium = _knowledge!.nutrition['potassium'];
-    if (calcium != null && potassium != null && calcium != AppStrings.infoUnavailable) {
-      return 'Ca: $calcium, K: $potassium';
+    final parts = <String>[];
+    final ca = _knowledge!.nutrition['calcium'];
+    final fe = _knowledge!.nutrition['iron'];
+    final k = _knowledge!.nutrition['potassium'];
+
+    if (ca != null && ca.isNotEmpty && ca != AppStrings.infoUnavailable) parts.add('Ca: $ca');
+    if (fe != null && fe.isNotEmpty && fe != AppStrings.infoUnavailable) parts.add('Fe: $fe');
+    if (k != null && k.isNotEmpty && k != AppStrings.infoUnavailable) parts.add('K: $k');
+
+    if (parts.isNotEmpty) {
+      return parts.join(', ');
     }
     return AppStrings.infoUnavailable;
   }

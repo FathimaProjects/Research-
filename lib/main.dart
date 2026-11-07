@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'core/constants/colors.dart';
@@ -6,6 +7,14 @@ import 'features/splash/presentation/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  // Initialize Firebase (uses android/app/google-services.json)
+  try {
+    await Firebase.initializeApp();
+    debugPrint('Citrus AI: Firebase initialized successfully.');
+  } catch (e) {
+    debugPrint('Citrus AI: Firebase initialization notice: $e');
+  }
 
   // Lock orientation to portrait for phones
   await SystemChrome.setPreferredOrientations([

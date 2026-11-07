@@ -1,17 +1,16 @@
-import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
-import 'package:http/http.dart' as http;
 import '../../../core/services/network_service.dart';
 import '../domain/citrus_knowledge_model.dart';
 
 class KnowledgeRepository {
-  // Configurable Firebase Realtime Database / Cloud Firestore REST endpoint
-  // Example: 'https://citrus-ai-default-rtdb.firebaseio.com'
-  static const String firebaseUrl = '';
-
   final Map<String, CitrusKnowledge> _cache = {};
 
-  /// Fetches verified fruit knowledge from the live cloud database.
+  /// Fetches verified fruit knowledge from the live cloud database (Firebase Firestore).
+  /// Project: citrus-data-46a79 (Citrus Data)
+  /// Collection: 'Citrus'
+  /// Documents: Orange, Tangerine, Lemon, Lime, Kaffir Lime
+  ///
   /// When offline or if no remote record is found, returns null so the UI
   /// cleanly displays "Information unavailable".
   Future<CitrusKnowledge?> getFruitKnowledge(String fruitName) async {
@@ -25,25 +24,32 @@ class KnowledgeRepository {
       return _cache[fruitName];
     }
 
-    if (firebaseUrl.isNotEmpty) {
-      try {
-        final response = await http
-            .get(
-              Uri.parse('$firebaseUrl/citrus_knowledge/$fruitName.json'),
-            )
-            .timeout(const Duration(seconds: 8));
+    try {
+      var doc = await FirebaseFirestore.instance
+          .collection('Citrus')
+          .doc(fruitName)
+          .get()
+          .timeout(const Duration(seconds: 8));
 
-        if (response.statusCode == 200 && response.body.isNotEmpty && response.body != 'null') {
-          final data = json.decode(response.body);
-          if (data is Map<String, dynamic>) {
-            final knowledge = CitrusKnowledge.fromJson(fruitName, data);
-            _cache[fruitName] = knowledge;
-            return knowledge;
-          }
-        }
-      } catch (e) {
-        debugPrint('KnowledgeRepository: Error querying Firebase: $e');
+      if (!doc.exists) {
+        // Fallback if document ID was created in lowercase
+        doc = await FirebaseFirestore.instance
+            .collection('Citrus')
+            .doc(fruitName.toLowerCase())
+            .get()
+            .timeout(const Duration(seconds: 5));
       }
+
+      if (doc.exists && doc.data() != null) {
+        debugPrint('KnowledgeRepository: Successfully fetched Firestore document for $fruitName: ${doc.data()}');
+        final knowledge = CitrusKnowledge.fromJson(fruitName, doc.data()!);
+        _cache[fruitName] = knowledge;
+        return knowledge;
+      } else {
+        debugPrint('KnowledgeRepository: Document $fruitName not found in collection "Citrus".');
+      }
+    } catch (e) {
+      debugPrint('KnowledgeRepository: Firestore fetch notice ($e)');
     }
 
     return null;
