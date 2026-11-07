@@ -302,7 +302,7 @@ class _AllergyHealthScreenState extends State<AllergyHealthScreen> {
 
                     const SizedBox(height: 16),
 
-                    // Card 2: Verified Precautions
+                    // Card 2: Allergy information (from Firestore)
                     Container(
                       width: double.infinity,
                       padding: const EdgeInsets.all(18),
@@ -333,7 +333,7 @@ class _AllergyHealthScreenState extends State<AllergyHealthScreen> {
                               ),
                               const SizedBox(width: 12),
                               const Text(
-                                'Verified precautions',
+                                'Allergy information',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w700,
@@ -345,11 +345,80 @@ class _AllergyHealthScreenState extends State<AllergyHealthScreen> {
                           const SizedBox(height: 10),
                           Text(
                             _knowledge != null
-                                ? '${_knowledge!.allergyInfo.citrusAllergy} ${_knowledge!.allergyInfo.sensitivityAdvice}'
-                                : 'Fruit-specific precautions and references will display only after a verified database match is available.',
+                                ? _knowledge!.allergyInfo.citrusAllergy
+                                : 'Information unavailable',
                             style: TextStyle(
-                              fontSize: 12,
-                              color: AppColors.forestGreen.withValues(alpha: 0.75),
+                              fontSize: 13,
+                              color: AppColors.forestGreen.withValues(alpha: 0.85),
+                              height: 1.45,
+                            ),
+                          ),
+                          if (_knowledge != null &&
+                              _knowledge!.allergyInfo.sensitivityAdvice != 'Information unavailable') ...[
+                            const SizedBox(height: 8),
+                            Text(
+                              _knowledge!.allergyInfo.sensitivityAdvice,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: AppColors.textMuted,
+                                height: 1.4,
+                              ),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 16),
+
+                    // Card 3: Health benefits (from Firestore)
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(18),
+                      decoration: BoxDecoration(
+                        color: AppColors.white,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: AppColors.borderLight),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              Container(
+                                width: 38,
+                                height: 38,
+                                decoration: BoxDecoration(
+                                  color: AppColors.softSage.withValues(alpha: 0.7),
+                                  shape: BoxShape.circle,
+                                ),
+                                child: const Center(
+                                  child: Icon(
+                                    Icons.favorite_outline,
+                                    size: 20,
+                                    color: AppColors.primaryGreen,
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(width: 12),
+                              const Text(
+                                'Health benefits',
+                                style: TextStyle(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w700,
+                                  color: AppColors.forestGreen,
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 10),
+                          Text(
+                            _knowledge != null
+                                ? _knowledge!.healthInfo.benefits
+                                : 'Information unavailable',
+                            style: TextStyle(
+                              fontSize: 13,
+                              color: AppColors.forestGreen.withValues(alpha: 0.85),
                               height: 1.45,
                             ),
                           ),

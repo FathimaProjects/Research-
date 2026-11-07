@@ -3,17 +3,47 @@ import 'package:flutter/material.dart';
 import '../../../core/constants/colors.dart';
 import '../../../core/widgets/circular_back_button.dart';
 import '../../culinary/presentation/culinary_ideas_screen.dart';
+import '../../knowledge/data/knowledge_repository.dart';
 import '../../knowledge/presentation/allergy_health_screen.dart';
 import '../../knowledge/presentation/nutrition_screen.dart';
 import '../domain/recognition_result.dart';
 
-class RecognitionResultScreen extends StatelessWidget {
+class RecognitionResultScreen extends StatefulWidget {
   final RecognitionResult result;
 
   const RecognitionResultScreen({
     super.key,
     required this.result,
   });
+
+  @override
+  State<RecognitionResultScreen> createState() => _RecognitionResultScreenState();
+}
+
+class _RecognitionResultScreenState extends State<RecognitionResultScreen> {
+  final KnowledgeRepository _repository = KnowledgeRepository();
+  String? _scientificName;
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchScientificName();
+  }
+
+  Future<void> _fetchScientificName() async {
+    // Only retrieve fruit information from Firestore for supported, confident predictions
+    if (!widget.result.isSupported) return;
+
+    final knowledge = await _repository.getFruitKnowledge(widget.result.predictedClass);
+    if (mounted && knowledge != null) {
+      if (knowledge.scientificName.isNotEmpty &&
+          knowledge.scientificName != 'Information unavailable') {
+        setState(() {
+          _scientificName = knowledge.scientificName;
+        });
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +100,7 @@ class RecognitionResultScreen extends StatelessWidget {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(28),
                       child: Image.file(
-                        File(result.imagePath),
+                        File(widget.result.imagePath),
                         fit: BoxFit.cover,
                       ),
                     ),
@@ -131,7 +161,7 @@ class RecognitionResultScreen extends StatelessWidget {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      result.predictedClass,
+                                      widget.result.predictedClass,
                                       style: const TextStyle(
                                         fontSize: 26,
                                         fontWeight: FontWeight.w700,
@@ -139,9 +169,21 @@ class RecognitionResultScreen extends StatelessWidget {
                                         letterSpacing: -0.5,
                                       ),
                                     ),
+                                    if (_scientificName != null) ...[
+                                      const SizedBox(height: 2),
+                                      Text(
+                                        _scientificName!,
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.primaryGreen,
+                                        ),
+                                      ),
+                                    ],
                                     const SizedBox(height: 2),
                                     Text(
-                                      '${result.confidencePercentage} model confidence',
+                                      '${widget.result.confidencePercentage} model confidence',
                                       style: const TextStyle(
                                         fontSize: 13,
                                         color: AppColors.textMuted,
@@ -161,8 +203,6 @@ class RecognitionResultScreen extends StatelessWidget {
               ),
 
               const SizedBox(height: 16),
-
-              
 
               const SizedBox(height: 16),
 
@@ -189,7 +229,7 @@ class RecognitionResultScreen extends StatelessWidget {
                           ),
                         ),
                         Text(
-                          result.confidencePercentage,
+                          widget.result.confidencePercentage,
                           style: const TextStyle(
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
@@ -209,7 +249,7 @@ class RecognitionResultScreen extends StatelessWidget {
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: FractionallySizedBox(
-                            widthFactor: result.confidence.clamp(0.0, 1.0),
+                            widthFactor: widget.result.confidence.clamp(0.0, 1.0),
                             child: Container(
                               color: AppColors.citrusOrange,
                             ),
@@ -248,8 +288,8 @@ class RecognitionResultScreen extends StatelessWidget {
                         Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (_) => NutritionScreen(
-                              fruitName: result.predictedClass,
-                              imagePath: result.imagePath,
+                              fruitName: widget.result.predictedClass,
+                              imagePath: widget.result.imagePath,
                             ),
                           ),
                         );
@@ -263,7 +303,7 @@ class RecognitionResultScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => AllergyHealthScreen(fruitName: result.predictedClass),
+                            builder: (_) => AllergyHealthScreen(fruitName: widget.result.predictedClass),
                           ),
                         );
                       },
@@ -276,7 +316,7 @@ class RecognitionResultScreen extends StatelessWidget {
                       onTap: () {
                         Navigator.of(context).push(
                           MaterialPageRoute(
-                            builder: (_) => CulinaryIdeasScreen(fruitName: result.predictedClass),
+                            builder: (_) => CulinaryIdeasScreen(fruitName: widget.result.predictedClass),
                           ),
                         );
                       },

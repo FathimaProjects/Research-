@@ -1,0 +1,16 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Citrus collection: Allow authenticated users (including Anonymous Auth) to read fruit knowledge
+    match /Citrus/{fruitId} {
+      allow read: if request.auth != null;
+      allow write: if false;
+    }
+
+    // Default: Deny read and write for all other paths
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
+

@@ -17,6 +17,18 @@ class CitrusKnowledge {
     required this.healthInfo,
   });
 
+  String? get calories => nutrition['calories'];
+  String? get carbs => nutrition['carbs'];
+  String? get sugar => nutrition['sugar'];
+  String? get fiber => nutrition['fiber'];
+  String? get protein => nutrition['protein'];
+  String? get fat => nutrition['fat'];
+  String? get vitaminC => nutrition['vitaminC'];
+  String? get vitaminA => nutrition['vitaminA'];
+  String? get vitaminE => nutrition['vitaminE'];
+  String? get calcium => nutrition['calcium'];
+  String? get iron => nutrition['iron'];
+
   factory CitrusKnowledge.fromJson(String fruit, Map<String, dynamic> json) {
     // Helper to find field value across multiple potential naming/casing variations
     String? findVal(List<String> candidateKeys) {

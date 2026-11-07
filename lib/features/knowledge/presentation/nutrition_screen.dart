@@ -229,7 +229,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       const SizedBox(height: 16),
                     ],
 
-                    // Nutrition Rows Card (Figma Layout with Orange Dot & Pill Values)
+                    // Nutrition Rows Card (All 11 Firestore Nutrients)
                     Container(
                       decoration: BoxDecoration(
                         color: AppColors.white,
@@ -239,23 +239,23 @@ class _NutritionScreenState extends State<NutritionScreen> {
                       child: Column(
                         children: [
                           _buildNutrientRow(
-                            'Energy',
+                            'Calories',
                             _getNutrientValue('calories'),
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
                           _buildNutrientRow(
-                            'Carbohydrates',
+                            'Carbohydrate',
                             _getNutrientValue('carbs'),
-                          ),
-                          const Divider(height: 1, color: AppColors.borderLight),
-                          _buildNutrientRow(
-                            'Sugar',
-                            _getNutrientValue('sugar'),
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
                           _buildNutrientRow(
                             'Fiber',
                             _getNutrientValue('fiber'),
+                          ),
+                          const Divider(height: 1, color: AppColors.borderLight),
+                          _buildNutrientRow(
+                            'Sugar',
+                            _getNutrientValue('sugar'),
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
                           _buildNutrientRow(
@@ -274,8 +274,23 @@ class _NutritionScreenState extends State<NutritionScreen> {
                           ),
                           const Divider(height: 1, color: AppColors.borderLight),
                           _buildNutrientRow(
-                            'Selected minerals',
-                            _getMineralsValue(),
+                            'Vitamin A',
+                            _getNutrientValue('vitaminA'),
+                          ),
+                          const Divider(height: 1, color: AppColors.borderLight),
+                          _buildNutrientRow(
+                            'Vitamin E',
+                            _getNutrientValue('vitaminE'),
+                          ),
+                          const Divider(height: 1, color: AppColors.borderLight),
+                          _buildNutrientRow(
+                            'Calcium',
+                            _getNutrientValue('calcium'),
+                          ),
+                          const Divider(height: 1, color: AppColors.borderLight),
+                          _buildNutrientRow(
+                            'Iron',
+                            _getNutrientValue('iron'),
                           ),
                         ],
                       ),
@@ -330,23 +345,6 @@ class _NutritionScreenState extends State<NutritionScreen> {
     final val = _knowledge!.nutrition[key];
     if (val == null || val.isEmpty) return AppStrings.infoUnavailable;
     return val;
-  }
-
-  String _getMineralsValue() {
-    if (_knowledge == null) return AppStrings.infoUnavailable;
-    final parts = <String>[];
-    final ca = _knowledge!.nutrition['calcium'];
-    final fe = _knowledge!.nutrition['iron'];
-    final k = _knowledge!.nutrition['potassium'];
-
-    if (ca != null && ca.isNotEmpty && ca != AppStrings.infoUnavailable) parts.add('Ca: $ca');
-    if (fe != null && fe.isNotEmpty && fe != AppStrings.infoUnavailable) parts.add('Fe: $fe');
-    if (k != null && k.isNotEmpty && k != AppStrings.infoUnavailable) parts.add('K: $k');
-
-    if (parts.isNotEmpty) {
-      return parts.join(', ');
-    }
-    return AppStrings.infoUnavailable;
   }
 
   Widget _buildNutrientRow(String label, String value) {
