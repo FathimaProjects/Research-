@@ -24,6 +24,7 @@ class _NutritionScreenState extends State<NutritionScreen> {
   final KnowledgeRepository _repository = KnowledgeRepository();
   CitrusKnowledge? _knowledge;
   bool _isLoading = true;
+  bool _isOffline = false;
 
   @override
   void initState() {
@@ -32,10 +33,12 @@ class _NutritionScreenState extends State<NutritionScreen> {
   }
 
   Future<void> _loadData() async {
+    setState(() => _isLoading = true);
     final result = await _repository.getFruitKnowledge(widget.fruitName);
     if (mounted) {
       setState(() {
         _knowledge = result;
+        _isOffline = (result == null);
         _isLoading = false;
       });
     }
@@ -74,7 +77,6 @@ class _NutritionScreenState extends State<NutritionScreen> {
                         const SizedBox(width: 44),
                       ],
                     ),
-
                     const SizedBox(height: 18),
 
                     // Forest Green Hero Card with Fruit Thumbnail
@@ -168,8 +170,64 @@ class _NutritionScreenState extends State<NutritionScreen> {
 
                     const SizedBox(height: 16),
 
-                    
-                    const SizedBox(height: 16),
+                    if (_isOffline) ...[
+                      Container(
+                        width: double.infinity,
+                        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+                        decoration: BoxDecoration(
+                          color: const Color(0xFFFDE8E8),
+                          borderRadius: BorderRadius.circular(16),
+                          border: Border.all(color: const Color(0xFFF8B4B4)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.wifi_off_rounded, color: Color(0xFFC53030), size: 20),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Text(
+                                    'Offline - Information Unavailable',
+                                    style: TextStyle(
+                                      fontSize: 13,
+                                      fontWeight: FontWeight.w700,
+                                      color: Color(0xFF9B1C1C),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 2),
+                                  Text(
+                                    'Verified nutrition records require an active internet connection to retrieve.',
+                                    style: TextStyle(
+                                      fontSize: 11,
+                                      color: const Color(0xFF9B1C1C).withValues(alpha: 0.85),
+                                      height: 1.3,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            TextButton(
+                              onPressed: _loadData,
+                              style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                                minimumSize: Size.zero,
+                                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                              ),
+                              child: const Text(
+                                'Retry',
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: Color(0xFF9B1C1C),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                    ],
 
                     // Nutrition Rows Card (Figma Layout with Orange Dot & Pill Values)
                     Container(

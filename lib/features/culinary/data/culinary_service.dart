@@ -1,23 +1,31 @@
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:http/http.dart' as http;
+import '../../../core/services/network_service.dart';
 import '../domain/recipe_item.dart';
 
 class CulinaryService {
-  // Configurable backend URL for deployed Firebase Cloud Function
+  // Configurable backend URL for deployed Firebase Cloud Function (Gemini Proxy)
+  // Example: 'https://us-central1-<project-id>.cloudfunctions.net/getCulinarySuggestions'
   static const String backendUrl = ''; 
 
-  /// Fetches culinary ideas for the identified citrus fruit
+  /// Fetches culinary ideas for the identified citrus fruit from the live cloud backend.
+  /// When offline or if no remote suggestions are returned, returns an empty list
+  /// so the UI cleanly displays the "Information unavailable" state.
   Future<List<RecipeItem>> getCulinaryIdeas(String fruitName) async {
-    // If backend URL is provided, call backend proxy securely
+    final bool isOnline = await NetworkService.isConnected();
+    if (!isOnline) {
+      debugPrint('CulinaryService: Device is offline. Returning empty list.');
+      return [];
+    }
+
     if (backendUrl.isNotEmpty) {
       try {
         final response = await http.post(
           Uri.parse(backendUrl),
           headers: {'Content-Type': 'application/json'},
           body: json.encode({'fruit': fruitName}),
-        );
+        ).timeout(const Duration(seconds: 10));
 
         if (response.statusCode == 200) {
           final data = json.decode(response.body);
@@ -29,26 +37,8 @@ class CulinaryService {
           }
         }
       } catch (e) {
-        debugPrint('Backend call failed, falling back to verified catalogue: $e');
+        debugPrint('CulinaryService: Error querying cloud backend: $e');
       }
-    }
-
-    // Default & offline fallback: Load verified curated catalogue
-    return _loadVerifiedCatalogue(fruitName);
-  }
-
-  Future<List<RecipeItem>> _loadVerifiedCatalogue(String fruitName) async {
-    try {
-      final jsonString = await rootBundle.loadString('assets/data/citrus_culinary.json');
-      final Map<String, dynamic> data = json.decode(jsonString);
-
-      if (data.containsKey(fruitName) && data[fruitName] is List) {
-        return (data[fruitName] as List)
-            .map((item) => RecipeItem.fromJson(item as Map<String, dynamic>))
-            .toList();
-      }
-    } catch (e) {
-      debugPrint('Error loading verified recipes catalogue: $e');
     }
 
     return [];

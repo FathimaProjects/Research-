@@ -21,6 +21,7 @@ class _CulinaryIdeasScreenState extends State<CulinaryIdeasScreen> {
   final CulinaryService _culinaryService = CulinaryService();
   List<RecipeItem> _recipes = [];
   bool _isLoading = true;
+  bool _isOffline = false;
 
   @override
   void initState() {
@@ -34,6 +35,7 @@ class _CulinaryIdeasScreenState extends State<CulinaryIdeasScreen> {
     if (mounted) {
       setState(() {
         _recipes = ideas;
+        _isOffline = ideas.isEmpty;
         _isLoading = false;
       });
     }
@@ -61,17 +63,7 @@ class _CulinaryIdeasScreenState extends State<CulinaryIdeasScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Verified YouTube recipe fallback if available
-    final featuredRecipe = _recipes.isNotEmpty
-        ? _recipes.first
-        : const RecipeItem(
-            title: 'Authentic Preserved Meyer Lemons',
-            description:
-                'Traditional North African lacto-fermented lemon rinds with sea salt, enhancing stews and tagines with deep floral umami.',
-            imageUrl:
-                'https://images.unsplash.com/photo-1513558161293-cdaf765ed2fd?w=600&auto=format&fit=crop&q=80',
-            recipeUrl: 'https://www.youtube.com/watch?v=0k5G6GjB7p0',
-          );
+    final featuredRecipe = _recipes.isNotEmpty ? _recipes.first : null;
 
     return Scaffold(
       backgroundColor: AppColors.warmCream,
@@ -160,11 +152,14 @@ class _CulinaryIdeasScreenState extends State<CulinaryIdeasScreen> {
 
                     const SizedBox(height: 14),
 
-                    
+                    if (_isOffline || _recipes.isEmpty) ...[
+                      const SizedBox(height: 18),
+                      _buildOfflineUnavailableView(),
+                      const SizedBox(height: 16),
+                    ] else if (featuredRecipe != null) ...[
+                      const SizedBox(height: 18),
 
-                    const SizedBox(height: 18),
-
-                    // Card 1: Large Hero Recipe Card (Citrus Herb Salad)
+                      // Card 1: Large Hero Recipe Card (Citrus Herb Salad)
                     Container(
                       decoration: BoxDecoration(
                         color: AppColors.white,
@@ -508,14 +503,92 @@ class _CulinaryIdeasScreenState extends State<CulinaryIdeasScreen> {
                       ),
                     ),
 
-                    const SizedBox(height: 14),
-
-                    
-
                     const SizedBox(height: 16),
                   ],
+                ],
+              ),
+            ),
+      ),
+    );
+  }
+
+  Widget _buildOfflineUnavailableView() {
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+      decoration: BoxDecoration(
+        color: AppColors.white,
+        borderRadius: BorderRadius.circular(24),
+        border: Border.all(color: AppColors.borderLight),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.04),
+            blurRadius: 14,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Container(
+            width: 64,
+            height: 64,
+            decoration: const BoxDecoration(
+              color: Color(0xFFFDE8E8),
+              shape: BoxShape.circle,
+            ),
+            child: const Center(
+              child: Icon(
+                Icons.wifi_off_rounded,
+                size: 32,
+                color: Color(0xFFC53030),
+              ),
+            ),
+          ),
+          const SizedBox(height: 18),
+          const Text(
+            'Information Unavailable',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: AppColors.forestGreen,
+              letterSpacing: -0.3,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Text(
+            'AI-assisted culinary suggestions and recipe links require an active internet connection. Please connect to the internet to retrieve ideas for ${widget.fruitName}.',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              fontSize: 13,
+              color: AppColors.forestGreen.withValues(alpha: 0.75),
+              height: 1.45,
+            ),
+          ),
+          const SizedBox(height: 24),
+          SizedBox(
+            width: double.infinity,
+            height: 48,
+            child: ElevatedButton.icon(
+              onPressed: _loadCulinarySuggestions,
+              icon: const Icon(Icons.refresh_rounded, size: 18),
+              label: const Text(
+                'Retry Connection',
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700),
+              ),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primaryGreen,
+                foregroundColor: AppColors.white,
+                elevation: 0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(14),
                 ),
               ),
+            ),
+          ),
+        ],
       ),
     );
   }

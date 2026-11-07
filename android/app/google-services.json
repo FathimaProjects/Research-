@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "659969101766",
+    "project_id": "citrus-data-46a79",
+    "storage_bucket": "citrus-data-46a79.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659969101766:android:ca2653cfa2910257e0ecc7",
+        "android_client_info": {
+          "package_name": "com.citrusai.citrus_ai"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDT_cg4IAVuCISjrAULrIkJ115YLyNCn-w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
